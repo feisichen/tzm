@@ -16,6 +16,7 @@
         教师号：<ins>&nbsp;{{ teacherId }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         教师名：<ins>&nbsp;{{ teacherName }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         时间：<ins>&nbsp;{{ time }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        考试成绩权重：<ins>&nbsp;{{ weight }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <!--        <br><br>-->
         选课人数上限：<ins>&nbsp;{{ limitNum }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         当前选课人数：<ins>&nbsp;{{ currentNum }}&nbsp;</ins>
@@ -46,7 +47,7 @@
         <div style="margin-top: 15px; margin-left: 20px; color: red;" v-if="needToUpdate">请更新综合成绩！</div>
       </el-col>
       <el-col :span="4">
-        <el-button style="margin: 10px;" type="primary" plain @click="getTotalGrade">生成综合成绩</el-button>
+        <el-button style="margin: 10px;" type="primary" plain @click="update">生成综合成绩</el-button>
       </el-col>
     </el-row>
 
@@ -119,6 +120,7 @@ export default {
       teacherName: sessionStorage.getItem("currentName"),
       term: sessionStorage.getItem("currentTerm"),
       time: sessionStorage.getItem("currentTime"),
+      weight: sessionStorage.getItem("currentWeight"),
       credit: sessionStorage.getItem("currentCredit"),
       limitNum: sessionStorage.getItem("currentLimitNum"),
       currentNum: sessionStorage.getItem("currentCurrentNum"),
@@ -213,22 +215,22 @@ export default {
       }
     },
     update() {
-      if (eval(this.form2.usualGradeProportion + "+" + this.form2.finalGradeProportion) !== 100) {
-        this.$message({
-          type: "warning",
-          message: "数据不合法，请重新输入"
-        })
-        this.form2 = {};
-        return;
-      }
+      // if (eval(this.form2.usualGradeProportion + "+" + this.form2.finalGradeProportion) !== 100) {
+      //   this.$message({
+      //     type: "warning",
+      //     message: "数据不合法，请重新输入"
+      //   })
+      //   this.form2 = {};
+      //   return;
+      // }
       request.get("/grade/update", {
         params: {
           term: this.term,
           courseId: this.courseId,
           teacherId: this.teacherId,
           time: this.time,
-          usualGradeProportion: this.form2.usualGradeProportion * 0.01,
-          finalGradeProportion: this.form2.finalGradeProportion * 0.01
+          usualGradeProportion: 1 - this.weight,
+          finalGradeProportion: this.weight
         }
       }).then(res => {
         console.log(res);

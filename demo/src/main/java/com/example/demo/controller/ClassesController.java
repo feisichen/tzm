@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.common.Result;
 import com.example.demo.entity.Classes;
+import com.example.demo.entity.ClassesVO;
 import com.example.demo.mapper.ClassesMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -113,7 +114,7 @@ public class ClassesController {
     @GetMapping("/forTeacher")
     private Result<?> findForTeacher(@RequestParam(defaultValue = "") String search,
                                      @RequestParam(defaultValue = "") String teacherId) {
-        List<Classes> data = classesMapper.findListByTeacherId(search, teacherId);
+        List<ClassesVO> data = classesMapper.findListByTeacherId(search, teacherId);
         Integer total = data.size();
         Map<String, Object> res = new HashMap<>();
         res.put("list", data);

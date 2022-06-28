@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.entity.Classes;
+import com.example.demo.entity.ClassesVO;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -57,11 +58,11 @@ public interface ClassesMapper extends BaseMapper<Classes> {
             "and c.time = g.time")
     Integer selectListTotalForQuit(String studentId, String search);
 
-    @Select("select cl.id,cl.teacher_name,cl.term,cl.course_id,cl.course_name,cl.time,cl.limit_num,cl.current_num from classes as cl, student as s, grade as g " +
-            "where cl.term = g.term and cl.teacher_id = g.teacher_id and cl.course_id = g.course_id and g.student_id = s.id " +
+    @Select("select cl.id,cl.teacher_Id,cl.teacher_name,cl.term,cl.course_id,cl.course_name,cl.time,course.weight,cl.limit_num,cl.current_num from classes as cl, course, student as s, grade as g " +
+            "where cl.term = g.term and cl.teacher_id = g.teacher_id and cl.course_id = g.course_id and g.student_id = s.id and course.id = cl.course_id " +
             "and cl.teacher_id = #{teacherId} " +
             "and (cl.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
-    List<Classes> findListByTeacherId(String search, String teacherId);
+    List<ClassesVO> findListByTeacherId(String search, String teacherId);
 
     @Select("select distinct term from classes")
     List<String> findAllTermForStudent();

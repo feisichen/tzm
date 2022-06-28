@@ -14,6 +14,7 @@
       <el-table-column prop="courseName" label="课名" sortable/>
       <el-table-column prop="credit" label="学分" width="60px"/>
       <el-table-column prop="time" label="时间"/>
+      <el-table-column prop="weight" label="考试成绩占比"/>
       <el-table-column prop="currentNum" label=" 当前人数" width="90px"/>
       <el-table-column prop="limitNum" label="人数上限" width="90px"/>
 
@@ -72,6 +73,7 @@ export default {
       sessionStorage.setItem("currentCourseName", row.courseName);
       sessionStorage.setItem("currentTerm", row.term);
       sessionStorage.setItem("currentTime", row.time);
+      sessionStorage.setItem("currentWeight", row.weight);
       sessionStorage.setItem("currentCredit", row.credit);
       sessionStorage.setItem("currentLimitNum", row.limitNum);
       sessionStorage.setItem("currentCurrentNum",row.currentNum);
@@ -85,6 +87,7 @@ export default {
       sessionStorage.setItem("currentCourseName", row.courseName);
       sessionStorage.setItem("currentTerm", row.term);
       sessionStorage.setItem("currentTime", row.time);
+      sessionStorage.setItem("currentWeight", row.weight);
       sessionStorage.setItem("currentCredit", row.credit);
       sessionStorage.setItem("currentLimitNum", row.limitNum);
       sessionStorage.setItem("currentCurrentNum",row.currentNum);
