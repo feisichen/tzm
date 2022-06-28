@@ -14,6 +14,7 @@ import TeacherCurriculum from "@/views/TeacherCurriculum";
 import TeacherGrade from "@/views/TeacherGrade";
 import ManageClasses from "@/views/ManageClasses";
 import ManageDepartment from "@/views/ManageDepartment";
+import ManageTime from "@/views/ManageTime";
 
 const routes = [
     {
@@ -46,7 +47,12 @@ const routes = [
                 path: '/manageDepartment',
                 name: 'ManageDepartment',
                 component: ManageDepartment
-            }
+            },
+            {
+                path: '/manageTime',
+                name: 'ManageTime',
+                component: ManageTime
+            },
         ]
     },
     {

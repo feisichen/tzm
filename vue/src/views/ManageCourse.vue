@@ -21,8 +21,10 @@
     <el-table :data="tableData" border stripe style="width: 100%;">
       <el-table-column prop="id" label="课号" sortable/>
       <el-table-column prop="name" label="课名"/>
-      <el-table-column prop="credit" label="学分" sortable/>
-      <el-table-column prop="department" label="学院" sortable/>
+      <el-table-column prop="credit" label="学分" width='80%' sortable/>
+      <el-table-column prop="department" label="学院" width='150%' sortable/>
+      <el-table-column prop="weight" label="考试成绩占比" width='150%' sortable/>
+
 
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
@@ -67,6 +69,11 @@
             />
           </el-select>
         </el-form-item>
+        <el-form-item label="考试成绩占比">
+          <el-input v-model="form.weight" style="width: 80%;"
+                    placeholder="输入0至1之间的小数"
+                    oninput="value=value.replace(/^0[0-9]|^[2-9]|^1[0-9]|^1\.|[^\d.]/g,'')"/>
+        </el-form-item>
       </el-form>
       <template #footer>
       <span>
@@ -95,6 +102,11 @@
                 :value="item.department"
             />
           </el-select>
+        </el-form-item>
+        <el-form-item label="考试成绩占比">
+          <el-input v-model="form2.weight" style="width: 80%;"
+                    placeholder="输入0至1之间的小数"
+                    oninput="value=value.replace(/^0[0-9]|^[2-9]|^1[0-9]|^1\.|[^\d.]/g,'')"/>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -159,6 +171,14 @@ export default {
       this.form = {};
     },
     save() {
+      if (this.form.weight == '1'||this.form.weight == '0') {
+        this.$message({
+          type: "warning",
+          message: "数据不合法，请重新输入"
+        })
+        this.form.weight = '';
+        return;
+      }
       request.post("/course", this.form).then(res => {
         console.log(res);
         if (res.code === '0') {
@@ -177,6 +197,14 @@ export default {
       })
     },
     update() {
+      if (this.form2.weight =='1'||this.form2.weight =='0') {
+        this.$message({
+          type: "warning",
+          message: "数据不合法，请重新输入"
+        })
+        this.form2.weight = '';
+        return;
+      }
       request.put("/course", this.form2).then(res => {
         console.log(res);
         if (res.code === '0') {

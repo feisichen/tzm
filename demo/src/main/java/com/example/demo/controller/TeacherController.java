@@ -61,6 +61,7 @@ public class TeacherController {
         wrapper.ne(Teacher::getId, 100);
         Page<Teacher> teacherPage = teacherMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
         return Result.success(teacherPage);
+
     }
 
     @PostMapping("/login")
@@ -69,6 +70,7 @@ public class TeacherController {
         if (res == null) {
             return Result.error("-1", "用户名或密码错误");
         }
+
         return Result.success(res);
     }
 
