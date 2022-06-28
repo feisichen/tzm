@@ -56,7 +56,6 @@ const routes = [
                 name: 'ManageTime',
                 component: ManageTime
             },
-            },
             {
                 path: '/manageClassStudent',
                 name: 'ManageClassStudent',
