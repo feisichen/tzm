@@ -8,7 +8,7 @@
     <div style="text-align: center;">
       <h1 style="color: #409EFF;">学生名单</h1>
       <span >
-        课程号：<ins style="color: ;">&nbsp;{{ courseId }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        课程号：<ins>&nbsp;{{ courseId }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         课程名：<ins>&nbsp;{{ courseName }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         学期：<ins>&nbsp;{{ term }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <!--        <br><br>-->
@@ -46,7 +46,7 @@
         <div style="margin-top: 15px; margin-left: 20px; color: red;" v-if="needToUpdate">请更新综合成绩！</div>
       </el-col>
       <el-col :span="4">
-        <el-button style="margin: 10px;" type="primary" plain @click="getTotalGrade">生成综合成绩</el-button>
+        <el-button style="margin: 10px;" type="primary" plain @click="update">生成综合成绩</el-button>
       </el-col>
     </el-row>
 
@@ -67,24 +67,24 @@
       </template>
     </el-dialog>
 
-    <el-dialog v-model="dialogVisible2" title="请输入平时分和考试分占比" width="30%">
-      <el-form :model="form2" label-width="120px">
-        <el-form-item label="平时成绩占比">
-          <el-input v-model="form2.usualGradeProportion" style="width: 40%;"/>
-          <span>&nbsp;&nbsp;%</span>
-        </el-form-item>
-        <el-form-item label="考试成绩占比">
-          <el-input v-model="form2.finalGradeProportion" style="width: 40%;"/>
-          <span>&nbsp;&nbsp;%</span>
-        </el-form-item>
-      </el-form>
-      <template #footer>
-      <span>
-        <el-button @click="dialogVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click="update">确 定</el-button>
-      </span>
-      </template>
-    </el-dialog>
+<!--    <el-dialog v-model="dialogVisible2" title="请输入平时分和考试分占比" width="30%">-->
+<!--      <el-form :model="form2" label-width="120px">-->
+<!--        <el-form-item label="平时成绩占比">-->
+<!--          <el-input v-model="form2.usualGradeProportion" style="width: 40%;"/>-->
+<!--          <span>&nbsp;&nbsp;%</span>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="考试成绩占比">-->
+<!--          <el-input v-model="form2.finalGradeProportion" style="width: 40%;"/>-->
+<!--          <span>&nbsp;&nbsp;%</span>-->
+<!--        </el-form-item>-->
+<!--      </el-form>-->
+<!--      <template #footer>-->
+<!--      <span>-->
+<!--        <el-button @click="dialogVisible2 = false">取 消</el-button>-->
+<!--        <el-button type="primary" @click="update">确 定</el-button>-->
+<!--      </span>-->
+<!--      </template>-->
+<!--    </el-dialog>-->
 
     <el-dialog v-model="dialogVisible3" width="80%" title="成绩分布">
       <el-row>
@@ -212,14 +212,6 @@ export default {
       }
     },
     update() {
-      if (eval(this.form2.usualGradeProportion + "+" + this.form2.finalGradeProportion) !== 100) {
-        this.$message({
-          type: "warning",
-          message: "数据不合法，请重新输入"
-        })
-        this.form2 = {};
-        return;
-      }
       request.get("/grade/update", {
         params: {
           term: this.term,
