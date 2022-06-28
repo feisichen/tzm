@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.common.Result;
 import com.example.demo.entity.Department;
+import com.example.demo.entity.Student;
 import com.example.demo.mapper.DepartmentMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +60,16 @@ public class DepartmentController {
             map.put("departmentName",data.get(i).getDepartmentName());
             res.add(map);
         }
+        return Result.success(res);
+    }
+    @GetMapping("/forStudent")
+    public Result<?> findForStudent(@RequestParam(defaultValue = "") String search,
+                                    @RequestParam(defaultValue = "") String department) {
+        List<Student> data = departmentMapper.findListForStudent(search,department);
+        Integer total = data.size();
+        Map<String, Object> res = new HashMap<>();
+        res.put("list", data);
+        res.put("total", total);
         return Result.success(res);
     }
 }

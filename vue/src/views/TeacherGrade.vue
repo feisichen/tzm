@@ -8,7 +8,7 @@
     <div style="text-align: center;">
       <h1 style="color: #409EFF;">学生名单</h1>
       <span >
-        课程号：<ins style="color: ;">&nbsp;{{ courseId }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        课程号：<ins style="color: ;">&nbsp;{{ id }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         课程名：<ins>&nbsp;{{ courseName }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         学期：<ins>&nbsp;{{ term }}&nbsp;</ins>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <!--        <br><br>-->
@@ -112,6 +112,7 @@ export default {
   data() {
     return {
       ArrowLeft,
+      id: sessionStorage.getItem("id"),
       courseId: sessionStorage.getItem("currentCourse"),
       courseName: sessionStorage.getItem("currentCourseName"),
       teacherId: sessionStorage.getItem("currentId"),

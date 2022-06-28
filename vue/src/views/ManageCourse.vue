@@ -24,12 +24,12 @@
       <el-table-column prop="credit" label="学分" sortable/>
       <el-table-column prop="department" label="学院" sortable/>
 
-      <el-table-column fixed="right" label="操作" width="120">
+      <el-table-column fixed="right" label="操作" width="150px">
         <template #default="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button type="primary" plain size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-popconfirm title="确定删除此课程吗？" @confirm="handleDelete(scope.row.id)">
             <template #reference>
-              <el-button type="text" size="small">删除</el-button>
+              <el-button type="primary" plain size="small">删除</el-button>
             </template>
           </el-popconfirm>
         </template>

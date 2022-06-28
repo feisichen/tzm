@@ -3,19 +3,19 @@
     <div style="margin: 10px 0;">
       <el-button type="primary" @click="add">新增</el-button>
     </div>
-
     <el-table :data="tableData" border stripe style="width: 100%;">
       <el-table-column prop="department" label="院系号" sortable/>
       <el-table-column prop="departmentName" label="院名"/>
       <el-table-column prop="depStudentNum" label="院学生数"/>
       <el-table-column prop="depTeacherNum" label="院教师数"/>
       <el-table-column prop="depCourseNum" label="院课程数"/>
-      <el-table-column fixed="right" label="操作" width="120">
+      <el-table-column fixed="right" label="操作" width="150px">
         <template #default="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row)">编辑</el-button>
+<!--          <el-button type="primary" plain size="small" @click="goToCheckStudent(scope.row)">查看名单</el-button>-->
+          <el-button type="primary" plain size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-popconfirm title="确定删除此学院吗？" @confirm="handleDelete(scope.row.department)">
             <template #reference>
-              <el-button type="text" size="small">删除</el-button>
+              <el-button type="primary" plain size="small">删除</el-button>
             </template>
           </el-popconfirm>
         </template>
@@ -85,6 +85,13 @@ export default {
         this.tableData = res.data;
         this.total = this.tableData.length;
       })
+    },
+    goToCheckStudent(row) {
+      // 缓存当前课程信息
+      sessionStorage.setItem("currentCheckDepartment", row.department);
+      sessionStorage.setItem("currentCheckDepartmentName", row.departmentName);
+      // 跳转路由
+      this.$router.push("/manageDepStudent");
     },
     add() {
       this.dialogVisible = true;

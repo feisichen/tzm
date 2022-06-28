@@ -4,11 +4,13 @@ import com.example.demo.common.Result;
 import com.example.demo.entity.Grade;
 import com.example.demo.entity.GradePlus;
 import com.example.demo.entity.GradeWithStudentName;
+import com.example.demo.entity.StudentVO;
 import com.example.demo.mapper.ClassesMapper;
 import com.example.demo.mapper.GradeMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -96,6 +98,19 @@ public class GradeController {
         return Result.success(res);
     }
 
+    @GetMapping("/forStudent")
+    public Result<?> findForStudent(@RequestParam(defaultValue = "") String search,
+                                    @RequestParam(defaultValue = "") String term,
+                                    @RequestParam(defaultValue = "") String courseId,
+                                    @RequestParam(defaultValue = "") String teacherId,
+                                    @RequestParam(defaultValue = "") String time) {
+        List<StudentVO> data = gradeMapper.findListForStudent(search, term, courseId, teacherId, time);
+        Integer total = data.size();
+        Map<String, Object> res = new HashMap<>();
+        res.put("list", data);
+        res.put("total", total);
+        return Result.success(res);
+    }
     @PostMapping("/logging")
     public Result<?> logging(@RequestBody Grade grade) {
         Integer res = gradeMapper.updateByLogging(grade.getTerm(), grade.getCourseId(), grade.getTeacherId(), grade.getStudentId(), grade.getTime(), grade.getUsualGrade(), grade.getFinalGrade());

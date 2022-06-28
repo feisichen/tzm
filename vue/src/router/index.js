@@ -12,6 +12,9 @@ import StudentGrade from "@/views/StudentGrade";
 import Teacher from "@/views/Teacher";
 import TeacherCurriculum from "@/views/TeacherCurriculum";
 import TeacherGrade from "@/views/TeacherGrade";
+import TeacherStudent from "@/views/TeacherStudent";
+import ManageClassStudent from "@/views/ManageClassStudent";
+import ManageDepStudent from "@/views/ManageDepStudent";
 import ManageClasses from "@/views/ManageClasses";
 import ManageDepartment from "@/views/ManageDepartment";
 
@@ -46,6 +49,16 @@ const routes = [
                 path: '/manageDepartment',
                 name: 'ManageDepartment',
                 component: ManageDepartment
+            },
+            {
+                path: '/manageClassStudent',
+                name: 'ManageClassStudent',
+                component: ManageClassStudent
+            },
+            {
+                path: '/manageDepStudent',
+                name: 'ManageDepStudent',
+                component: ManageDepStudent
             }
         ]
     },
@@ -97,6 +110,11 @@ const routes = [
                 path: '/teacherGrade',
                 name: 'TeacherGrade',
                 component: TeacherGrade
+            },
+            {
+                path: '/teacherStudent',
+                name: 'TeacherStudent',
+                component: TeacherStudent
             }
         ]
     }

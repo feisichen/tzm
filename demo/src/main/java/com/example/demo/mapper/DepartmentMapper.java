@@ -2,6 +2,7 @@ package com.example.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.entity.Department;
+import com.example.demo.entity.Student;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.HashMap;
@@ -24,6 +25,12 @@ public interface DepartmentMapper extends BaseMapper<Department> {
     // 删除部门
     Integer deleteDepartment(Integer department);
 
+    @Select("select id,password,name,sex,s.department,s.gpa " +
+            "from student as s, department as d " +
+            "where s.department = d.department " +
+            "and s.department = #{department} " +
+            "and (s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%'))")
+    List<Student> findListForStudent(String search, String department);
     // 调用存储过程，返回学院学生数，教师数，课程数
     void getDepartmentInfo(Map<String, Object> map);
 }

@@ -26,15 +26,16 @@
       <el-table-column prop="teacherId" label="教师号"/>
       <el-table-column prop="teacherName" label="教师名"/>
       <el-table-column prop="time" label="时间"/>
-      <el-table-column prop="currentNum" label=" 当前人数"/>
-      <el-table-column prop="limitNum" label="人数上限"/>
+      <el-table-column prop="currentNum" width="100px" label=" 当前人数"/>
+      <el-table-column prop="limitNum" width="100px" label="人数上限"/>
 
-      <el-table-column fixed="right" label="操作" width="120">
+      <el-table-column fixed="right" label="操作" width="240px">
         <template #default="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button type="primary" plain size="small" @click="goToCheckStudent(scope.row)">查看名单</el-button>
+          <el-button type="primary" plain size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-popconfirm title="确定删除此班级吗？" @confirm="handleDelete(scope.row.id)">
             <template #reference>
-              <el-button type="text" size="small">删除</el-button>
+              <el-button type="primary" plain size="small">删除</el-button>
             </template>
           </el-popconfirm>
         </template>
@@ -226,6 +227,20 @@ export default {
         this.total = res.data.total;
         this.tableData = res.data.page;
       })
+    },
+    goToCheckStudent(row) {
+      // 缓存当前课程信息
+      sessionStorage.setItem("id", row.id);
+      sessionStorage.setItem("currentTeacherId", row.teacherId);
+      sessionStorage.setItem("currentTeacherName", row.teacherName);
+      sessionStorage.setItem("currentCourse", row.courseId);
+      sessionStorage.setItem("currentCourseName", row.courseName);
+      sessionStorage.setItem("currentTerm", row.term);
+      sessionStorage.setItem("currentTime", row.time);
+      sessionStorage.setItem("currentLimitNum", row.limitNum);
+      sessionStorage.setItem("currentCurrentNum",row.currentNum);
+      // 跳转路由
+      this.$router.push("/manageClassStudent");
     },
     add() {
       this.dialogVisible = true;

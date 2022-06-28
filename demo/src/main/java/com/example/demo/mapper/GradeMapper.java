@@ -5,8 +5,10 @@ import com.example.demo.entity.CreditAndGrade;
 import com.example.demo.entity.Grade;
 import com.example.demo.entity.GradePlus;
 import com.example.demo.entity.GradeWithStudentName;
+import com.example.demo.entity.StudentVO;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -41,6 +43,14 @@ public interface GradeMapper extends BaseMapper<Grade> {
             "from grade as g join student as s on g.term = #{term} and g.course_id = #{courseId} " +
             "and g.teacher_id = #{teacherId} and g.time = #{time} and g.student_id = s.id")
     List<GradeWithStudentName> findListForGrade(String term, String courseId, String teacherId, String time);
+
+    @Select("select s.id,s.name,s.sex,d.department_name,s.gpa,g.usual_grade,g.final_grade,g.total_grade " +
+            "from grade as g, student as s, department as d " +
+            "where g.student_id = s.id and s.department = d.department " +
+            "and g.term = #{term} and g.course_id = #{courseId} " +
+            "and g.teacher_id = #{teacherId} and g.time = #{time}" +
+            "and (s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%'))")
+    List<StudentVO> findListForStudent(String search, String term, String courseId, String teacherId, String time);
 
     @Update("update grade set usual_grade = #{usualGrade}, final_grade = #{finalGrade} " +
             "where term = #{term} and student_id = #{studentId} and teacher_id = #{teacherId} and " +
