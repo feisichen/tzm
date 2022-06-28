@@ -26,12 +26,12 @@
       <el-table-column prop="finalgradebegin" label="考试成绩登记开始时间" :formatter="timechange"/>
       <el-table-column prop="finalgradeend" label="考试成绩登记结束时间" :formatter="timechange"/>
 
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column fixed="right" label="操作" width="150px">
         <template #default="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row)">编辑</el-button>
+          <el-button type="primary" plain size="small" @click="handleEdit(scope.row)">编辑</el-button>
           <el-popconfirm title="确定删除此学期吗？" @confirm="handleDelete(scope.row.term)">
             <template #reference>
-              <el-button type="text" size="small">删除</el-button>
+              <el-button type="primary" plain size="small">删除</el-button>
             </template>
           </el-popconfirm>
         </template>
