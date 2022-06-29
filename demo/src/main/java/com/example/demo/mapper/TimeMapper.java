@@ -14,5 +14,14 @@ public interface TimeMapper extends BaseMapper<TimeLimit> {
             "and selectend >= (SELECT CURRENT_TIMESTAMP FROM DUAL);")
     Integer isTimeAllow(String term);
 
+    @Select("select count(*) from time_limit where term = #{term} " +
+            "and usualgradebegin <= (SELECT CURRENT_TIMESTAMP FROM DUAL) " +
+            "and usualgradeend >= (SELECT CURRENT_TIMESTAMP FROM DUAL);")
+    Integer isUTimeAllow(String term);
+
+    @Select("select count(*) from time_limit where term = #{term} " +
+            "and finalgradebegin <= (SELECT CURRENT_TIMESTAMP FROM DUAL) " +
+            "and finalgradeend >= (SELECT CURRENT_TIMESTAMP FROM DUAL);")
+    Integer isFTimeAllow(String term);
 
 }

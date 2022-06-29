@@ -83,4 +83,6 @@ public interface GradeMapper extends BaseMapper<Grade> {
 
     @Select("select count(*) from grade where student_id = #{studentId} and term = #{term} and course_id = #{courseId}")
     Integer findIsRepeat(String studentId, String term, String courseId);
+
+
 }

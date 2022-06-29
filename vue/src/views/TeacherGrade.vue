@@ -167,11 +167,43 @@ export default {
     },
     usualGrade() {
       // 跳转路由
-      this.$router.push("/usualGrade");
+      // console.log(this.totalAverage);
+      request.get("/grade/usualGradeTime", {
+        params: {
+          term:this.term,
+        }
+      }).then(res => {
+        // console.log(res);
+        if (res.code === '0') {
+          this.$router.push("/usualGrade");
+          this.load();
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.msg
+          })
+          }
+      })
     },
     finalGrade() {
       // 跳转路由
-      this.$router.push("/finalgrade");
+      // this.$router.push("/finalgrade");
+      request.get("/grade/finalGradeTime", {
+        params: {
+          term:this.term,
+        }
+      }).then(res => {
+        console.log(res);
+        if (res.code === '0') {
+          this.$router.push("/finalgrade");
+          this.load();
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.msg
+          })
+        }
+      })
     },
     // handleGrade(row) {
     //   this.form.usualGrade = row.usualGrade;
