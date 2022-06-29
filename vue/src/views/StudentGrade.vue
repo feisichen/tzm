@@ -22,7 +22,10 @@
       <el-table-column prop="finalGrade" label="考试成绩" sortable/>
       <el-table-column prop="totalGrade" label="综合成绩" sortable/>
     </el-table>
-    <el-row style="margin: 10px 10px 10px; font-size: 10px; color: rgb(96, 98, 102);">
+    <el-row style="margin: 10px 10px 10px; font-family: 'Microsoft YaHei' ; font-size: 15px; color: rgb(96, 98, 102);">
+      共 {{ total }} 条
+    </el-row>
+    <el-row style="margin: 20px 10px 10px; font-family: 'Microsoft YaHei' ;font-size: 20px; color: rgb(96, 98, 102);">
       <el-col :span="20">
         总学分：{{ totalCredit }}
       </el-col>
@@ -30,9 +33,7 @@
         平均绩点：{{ gpa }}
       </el-col>
     </el-row>
-    <el-row style="margin: 10px 10px 10px; font-size: 10px; color: rgb(96, 98, 102);">
-      共 {{ total }} 条
-    </el-row>
+
 
   </div>
 </template>

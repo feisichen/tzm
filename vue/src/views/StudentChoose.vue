@@ -7,15 +7,15 @@
     </div>
 
     <el-table :data="tableData" border stripe style="width: 100%;">
-      <el-table-column prop="term" label="学期" sortable/>
-      <el-table-column prop="courseId" label="课号" sortable/>
-      <el-table-column prop="courseName" label="课名"/>
-      <el-table-column prop="credit" label="学分"/>
-      <el-table-column prop="teacherId" label="教师号" sortable/>
+      <el-table-column prop="term" label="学期" width='100%' sortable/>
+      <el-table-column prop="courseId" label="课号" width='100%' sortable/>
+      <el-table-column prop="courseName" label="课名" width='300%' />
+      <el-table-column prop="credit" label="学分" width='60%'/>
+      <el-table-column prop="teacherId" label="教师号"  width='150%' sortable/>
       <el-table-column prop="teacherName" label="教师名"/>
       <el-table-column prop="time" label="时间"/>
-      <el-table-column prop="currentNum" label=" 当前人数"/>
-      <el-table-column prop="limitNum" label="人数上限"/>
+      <el-table-column prop="currentNum" label=" 当前人数" width='90%'/>
+      <el-table-column prop="limitNum" label="人数上限" width='90%'/>
 
       <el-table-column fixed="right" label="操作" width="120">
         <template #default="scope">
@@ -27,7 +27,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div style="margin: 10px 10px 10px; font-size: 10px; color: rgb(96, 98, 102);">共 {{ total }} 条</div>
+    <div style="margin: 10px 10px 10px; font-family: 'Microsoft YaHei' ; font-size: 15px; color: rgb(96, 98, 102);">共 {{ total }} 条</div>
   </div>
 </template>
 

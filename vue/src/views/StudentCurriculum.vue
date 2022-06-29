@@ -21,8 +21,8 @@
       <el-table-column prop="teacherName" label="教师名"/>
       <el-table-column prop="time" label="时间"/>
     </el-table>
-    <div style="margin: 10px 10px 10px; font-size: 10px; color: rgb(96, 98, 102);">共 {{ total }} 条</div>
-    <div style="margin: 10px 10px 10px; font-size: 10px; color: rgb(96, 98, 102);" v-if="tableHidden == false">
+    <div style="margin: 10px 10px 10px; font-family: 'Microsoft YaHei' ; font-size: 15px; color: rgb(96, 98, 102);">共 {{ total }} 条</div>
+    <div style="margin: 10px 10px 10px; font-size: 20px; color: rgb(96, 98, 102);" v-if="tableHidden == false">
       总学分：{{ totalCredit }}
     </div>
 

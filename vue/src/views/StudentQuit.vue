@@ -25,7 +25,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div style="margin: 10px 10px 10px; font-size: 10px; color: rgb(96, 98, 102);">共 {{ total }} 条</div>
+    <div style="margin: 10px 10px 10px; font-family: 'Microsoft YaHei' ; font-size: 15px; color: rgb(96, 98, 102);">共 {{ total }} 条</div>
   </div>
 </template>
 
