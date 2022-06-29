@@ -7,6 +7,7 @@ import com.example.demo.entity.GradeWithStudentName;
 import com.example.demo.entity.StudentVO;
 import com.example.demo.mapper.ClassesMapper;
 import com.example.demo.mapper.GradeMapper;
+import com.example.demo.mapper.TimeMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,6 +24,9 @@ public class GradeController {
 
     @Resource
     ClassesMapper classesMapper;
+
+    @Resource
+    TimeMapper timeMapper;
 
     @PostMapping
     public Result<?> save(@RequestBody Grade grade) {
@@ -50,6 +54,10 @@ public class GradeController {
         if (res.intValue() != 0) {
             return Result.error("-4", "选课失败，你的时间冲突");
         }
+        res = timeMapper.isTimeAllow(grade.getTerm());
+        if(res.intValue() == 0){
+            return Result.error("-5", "选课失败，不在选课时间内");
+        }
         return Result.success();
     }
 
@@ -74,6 +82,10 @@ public class GradeController {
         Integer res = gradeMapper.findCertainId(term, courseId, teacherId, studentId, time);
         if (res == null) {
             return Result.error("-1", "已进行考核，禁止退课！");
+        }
+        res = timeMapper.isTimeAllow(term);
+        if(res.intValue() == 0){
+            return Result.error("-2", "退课失败，不在选课时间内");
         }
         classesMapper.deleteOneStudent(term, courseId, teacherId, time);
         return Result.success(res);
