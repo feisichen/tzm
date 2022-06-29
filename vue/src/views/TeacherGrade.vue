@@ -31,11 +31,11 @@
         <el-table-column prop="finalGrade" label="考试成绩" sortable/>
         <el-table-column prop="totalGrade" label="综合成绩" sortable/>
 
-        <el-table-column fixed="right" label="操作" width="120">
-          <template #default="scope">
-            <el-button type="text" size="small" @click="handleGrade(scope.row)">编辑成绩</el-button>
-          </template>
-        </el-table-column>
+<!--        <el-table-column fixed="right" label="操作" width="120">-->
+<!--          <template #default="scope">-->
+<!--            <el-button type="text" size="small" @click="handleGrade(scope.row)">编辑成绩</el-button>-->
+<!--          </template>-->
+<!--        </el-table-column>-->
       </el-table>
     </div>
 
@@ -47,7 +47,8 @@
         <div style="margin-top: 15px; margin-left: 20px; color: red;" v-if="needToUpdate">请更新综合成绩！</div>
       </el-col>
       <el-col :span="4">
-        <el-button style="margin: 10px;" type="primary" plain @click="update">生成综合成绩</el-button>
+        <el-button style="margin: 10px;" type="primary" plain @click="update">登入平时成绩</el-button>
+        <el-button style="margin: 10px;" type="primary" plain @click="update">登入考试成绩</el-button>
       </el-col>
     </el-row>
 
