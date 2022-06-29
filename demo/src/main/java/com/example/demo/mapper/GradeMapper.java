@@ -57,10 +57,20 @@ public interface GradeMapper extends BaseMapper<Grade> {
             "course_id = #{courseId} and time = #{time}")
     Integer updateByLogging(String term, String courseId, String teacherId, String studentId, String time, Integer usualGrade, Integer finalGrade);
 
-    @Update("update grade set total_grade = usual_grade * #{usualGradeProportion} + " +
-            "final_grade * #{finalGradeProportion} where term = #{term} and " +
-            "teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
-    Integer updateTotal(String term, String courseId, String teacherId, String time, Double usualGradeProportion, Double finalGradeProportion);
+//    @Update("update grade set total_grade = usual_grade * #{usualGradeProportion} + " +
+//            "final_grade * #{finalGradeProportion} where term = #{term} and " +
+//            "teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
+//    Integer updateTotal(String term, String courseId, String teacherId, String time, Double usualGradeProportion, Double finalGradeProportion);
+
+    @Update("update grade set usual_grade = #{grade} " +
+            "where term = #{term} and student_id = #{studentId} " +
+            "and teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
+    Integer updateUsual(String term, String courseId, String teacherId, String time, String studentId, Integer grade);
+
+    @Update("update grade set final_grade = #{grade}, total_grade = usual_grade * (1-#{weight}) + final_grade * #{weight} " +
+            "where term = #{term} and student_id = #{studentId} " +
+            "and teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
+    Integer updateFinal(String term, String courseId, String teacherId, String time, Double weight, String studentId, Integer grade);
 
     @Select("select g.term,g.course_id,c.name as course_name,g.teacher_id,t.name as teacher_name,g.usual_grade,g.final_grade," +
             "g.total_grade from grade as g join course as c join teacher as t " +

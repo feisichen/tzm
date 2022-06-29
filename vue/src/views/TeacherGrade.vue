@@ -47,8 +47,8 @@
         <div style="margin-top: 15px; margin-left: 20px; color: red;" v-if="needToUpdate">请更新综合成绩！</div>
       </el-col>
       <el-col :span="4">
-        <el-button style="margin: 10px;" type="primary" plain @click="update">登入平时成绩</el-button>
-        <el-button style="margin: 10px;" type="primary" plain @click="update">登入考试成绩</el-button>
+        <el-button style="margin: 10px;" type="primary" plain @click="usualGrade">登入平时成绩</el-button>
+        <el-button style="margin: 10px;" type="primary" plain @click="finalGrade">登入考试成绩</el-button>
       </el-col>
     </el-row>
 
@@ -165,18 +165,26 @@ export default {
         this.total = res.data.total;
       })
     },
-    handleGrade(row) {
-      this.form.usualGrade = row.usualGrade;
-      this.form.finalGrade = row.finalGrade;
-      this.title = row.id + "-" + row.name + "的成绩信息";
-
-      this.row.studentId = row.id;
-      this.row.teacherId = this.teacherId;
-      this.row.courseId = this.courseId;
-      this.row.term = this.term;
-      this.row.time = this.time;
-      this.dialogVisible = true;
+    usualGrade() {
+      // 跳转路由
+      this.$router.push("/usualGrade");
     },
+    finalGrade() {
+      // 跳转路由
+      this.$router.push("/finalgrade");
+    },
+    // handleGrade(row) {
+    //   this.form.usualGrade = row.usualGrade;
+    //   this.form.finalGrade = row.finalGrade;
+    //   this.title = row.id + "-" + row.name + "的成绩信息";
+    //
+    //   this.row.studentId = row.id;
+    //   this.row.teacherId = this.teacherId;
+    //   this.row.courseId = this.courseId;
+    //   this.row.term = this.term;
+    //   this.row.time = this.time;
+    //   this.dialogVisible = true;
+    // },
     save() {
       this.row.usualGrade = this.form.usualGrade;
       this.row.finalGrade = this.form.finalGrade;

@@ -18,6 +18,8 @@ import ManageDepStudent from "@/views/ManageDepStudent";
 import ManageClasses from "@/views/ManageClasses";
 import ManageDepartment from "@/views/ManageDepartment";
 import ManageTime from "@/views/ManageTime";
+import UsualGrade from "@/views/UsualGrade";
+import FinalGrade from "@/views/FinalGrade";
 
 const routes = [
     {
@@ -116,6 +118,16 @@ const routes = [
                 path: '/teacherGrade',
                 name: 'TeacherGrade',
                 component: TeacherGrade
+            },
+            {
+                path: '/usualGrade',
+                name: 'UsualGrade',
+                component: UsualGrade
+            },
+            {
+                path: '/finalGrade',
+                name: 'FinalGrade',
+                component: FinalGrade
             },
             {
                 path: '/teacherStudent',

@@ -24,24 +24,26 @@ public interface ClassesMapper extends BaseMapper<Classes> {
     // 以上两个方法为实现分页效果而存在，已废弃
 
 
-    @Select("select c.id,c.term,c.course_id,c.course_name,c.teacher_id,c.teacher_name,c.time,c.limit_num,c.current_num from classes as c, course, grade as g, student as s " +
-            "where course.id = c.course_id and c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id and g.student_id = s.id " +
-            "and (c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
+    @Select("select c.id,c.term,c.course_id,c.course_name,c.teacher_id,c.teacher_name,c.time,c.limit_num,c.current_num " +
+            "from course, classes as c left join grade as g on c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id left join student as s on g.student_id = s.id " +
+            "where course.id = c.course_id " +
+            "and (c.course_id like concat('%', #{search}, '%') or c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
     List<Classes> findListBySearch(String search);
 
-    @Select("select c.id,c.term,c.course_id,c.course_name,c.teacher_id,c.teacher_name,c.time,c.limit_num,c.current_num from classes as c, course, grade as g, student as s " +
-            "where course.id = c.course_id and c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id and g.student_id = s.id  and course.department = #{selectDep} " +
-            "and (c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
+    @Select("select c.id,c.term,c.course_id,c.course_name,c.teacher_id,c.teacher_name,c.time,c.limit_num,c.current_num " +
+            "from course, classes as c left join grade as g on c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id left join student as s on g.student_id = s.id " +
+            "where course.id = c.course_id and course.department = #{selectDep} " +
+            "and (c.course_id like concat('%', #{search}, '%') or c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
     List<Classes> findListBySearchAndDep(String search, Integer selectDep);
 
-    @Select("select count(*) from classes as c, course, grade as g, student as s " +
-            "where course.id = c.course_id and c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id and g.student_id = s.id " +
-            "and (c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
+    @Select("select count(*) from course, classes as c left join grade as g on c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id left join student as s on g.student_id = s.id " +
+            "where course.id = c.course_id " +
+            "and (c.course_id like concat('%', #{search}, '%') or c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
     Integer selectListTotalBySearch(String search);
 
-    @Select("select count(*) from classes as c, course, grade as g, student as s " +
-            "where course.id = c.course_id and c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id and g.student_id = s.id  and course.department = #{selectDep} " +
-            "and (c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
+    @Select("select count(*) from course, classes as c left join grade as g on c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id left join student as s on g.student_id = s.id " +
+            "where course.id = c.course_id and course.department = #{selectDep} " +
+            "and (c.course_id like concat('%', #{search}, '%') or c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
     Integer selectListTotalBySearchAndDep(String search, Integer selectDep);
 
     @Select("select c.term,c.course_id,c.course_name,c.teacher_id,c.teacher_name,c.time " +
@@ -58,10 +60,11 @@ public interface ClassesMapper extends BaseMapper<Classes> {
             "and c.time = g.time")
     Integer selectListTotalForQuit(String studentId, String search);
 
-    @Select("select cl.id,cl.teacher_Id,cl.teacher_name,cl.term,cl.course_id,cl.course_name,cl.time,course.weight,cl.limit_num,cl.current_num from classes as cl, course, student as s, grade as g " +
-            "where cl.term = g.term and cl.teacher_id = g.teacher_id and cl.course_id = g.course_id and g.student_id = s.id and course.id = cl.course_id " +
-            "and cl.teacher_id = #{teacherId} " +
-            "and (cl.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
+    @Select("select c.id,c.teacher_Id,c.teacher_name,c.term,c.course_id,c.course_name,c.time,course.weight,c.limit_num,c.current_num " +
+            "from course, classes as c left join grade as g on c.term = g.term and c.teacher_id = g.teacher_id and c.course_id = g.course_id left join student as s on g.student_id = s.id " +
+            "where course.id = c.course_id " +
+            "and c.teacher_id = #{teacherId} " +
+            "and (c.course_id like concat('%', #{search}, '%') or c.course_name like concat('%', #{search}, '%') or s.name like concat('%', #{search}, '%') or s.id like concat('%', #{search}, '%')) ")
     List<ClassesVO> findListByTeacherId(String search, String teacherId);
 
     @Select("select distinct term from classes")

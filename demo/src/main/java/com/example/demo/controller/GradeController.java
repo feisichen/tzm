@@ -117,16 +117,16 @@ public class GradeController {
         return Result.success(res);
     }
 
-    @GetMapping("/update")
-    public Result<?> update(@RequestParam(defaultValue = "") String term,
-                            @RequestParam(defaultValue = "") String courseId,
-                            @RequestParam(defaultValue = "") String teacherId,
-                            @RequestParam(defaultValue = "") String time,
-                            @RequestParam(defaultValue = "") Double usualGradeProportion,
-                            @RequestParam(defaultValue = "") Double finalGradeProportion) {
-        Integer res = gradeMapper.updateTotal(term, courseId, teacherId, time, usualGradeProportion, finalGradeProportion);
-        return Result.success(res);
-    }
+//    @GetMapping("/update")
+//    public Result<?> update(@RequestParam(defaultValue = "") String term,
+//                            @RequestParam(defaultValue = "") String courseId,
+//                            @RequestParam(defaultValue = "") String teacherId,
+//                            @RequestParam(defaultValue = "") String time,
+//                            @RequestParam(defaultValue = "") Double usualGradeProportion,
+//                            @RequestParam(defaultValue = "") Double finalGradeProportion) {
+//        Integer res = gradeMapper.updateTotal(term, courseId, teacherId, time, usualGradeProportion, finalGradeProportion);
+//        return Result.success(res);
+//    }
 
     @GetMapping("/forStudentDisplay")
     public Result<?> findListForStudentDisplay(@RequestParam(defaultValue = "") String studentId,
@@ -136,6 +136,29 @@ public class GradeController {
         Map<String, Object> res = new HashMap<>();
         res.put("list", data);
         res.put("total", total);
+        return Result.success(res);
+    }
+    @GetMapping("/usualGrade")
+    public Result<?> updateUsualGrade(@RequestParam(defaultValue = "") String term,
+                                      @RequestParam(defaultValue = "") String courseId,
+                                      @RequestParam(defaultValue = "") String teacherId,
+                                      @RequestParam(defaultValue = "") String time,
+                                      @RequestParam(defaultValue = "") String studentId,
+                                      @RequestParam(defaultValue = "") Integer grade) {
+//        System.out.print("Hello,World!Hello,World!Hello,World!Hello,World!Hello,World!\n\n\n");
+        int res = gradeMapper.updateUsual(term,courseId,teacherId,time,studentId,grade);
+        return Result.success(res);
+    }
+
+    @GetMapping("/finalGrade")
+    public Result<?> updateFinalGrade(@RequestParam(defaultValue = "") String term,
+                                      @RequestParam(defaultValue = "") String courseId,
+                                      @RequestParam(defaultValue = "") String teacherId,
+                                      @RequestParam(defaultValue = "") String time,
+                                       @RequestParam(defaultValue = "") Double weight,
+                                      @RequestParam(defaultValue = "") String studentId,
+                                      @RequestParam(defaultValue = "") Integer grade) {
+        int res = gradeMapper.updateFinal(term,courseId,teacherId,time,weight,studentId,grade);
         return Result.success(res);
     }
 }
