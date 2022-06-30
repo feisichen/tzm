@@ -25,14 +25,19 @@
       <el-table :data="tableData" border stripe style="width: 100%;">
         <el-table-column prop="id" label="学生学号" sortable/>
         <el-table-column prop="name" label="学生姓名"/>
-        <el-table-column fixed="right" label="平时成绩" width="480px">
+        <el-table-column fixed="right" label="平时成绩" width="440px">
           <template #default="scope">
-            <el-input v-model="scope.row.grade1" placeholder="请输入成绩"  clearable/>
+            <el-input v-model="scope.row.grade1" :disabled="inputbuttonf(scope)" placeholder="请输入成绩"  clearable/>
           </template>
         </el-table-column>
-        <el-table-column fixed="right" label="确认平时成绩" width="480px">
+        <el-table-column fixed="right" label="确认平时成绩" width="440px">
           <template #default="scope">
-            <el-input v-model="scope.row.grade2" placeholder="请输入成绩"  clearable/>
+            <el-input v-model="scope.row.grade2" :disabled="inputbuttonf(scope)" placeholder="请输入成绩"  clearable/>
+          </template>
+        </el-table-column>
+        <el-table-column fixed="right" label="是否不计平时成绩" >
+          <template #default="scope">
+            <el-checkbox v-model="scope.row.checked" @change="checkchange" >不计平时成绩</el-checkbox>
           </template>
         </el-table-column>
       </el-table>
@@ -77,12 +82,11 @@ export default {
       limitNum: sessionStorage.getItem("currentLimitNum"),
       currentNum: sessionStorage.getItem("currentCurrentNum"),
 
+      checked: false,
       tableData: [],
       grade1: null,
       grade2: null,
       row: {},
-      isequal: true,
-      isvalid: true,
       badGrade: false,
       disagreeGrade: false
     }
@@ -91,6 +95,17 @@ export default {
     this.load();
   },
   methods: {
+    inputbuttonf(scope){
+      // console.log(scope.row.checked)
+      if (scope.row.checked === true) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    checkchange(){
+      console.log(this.tableData);
+    },
     load() {
       request.get("/grade/forGrade", {
         params: {
@@ -106,48 +121,83 @@ export default {
       })
     },
     save() {
-      let index=0;
-      this.isvalid = true;
-      this.isequal = true;
-        for(index=0;index < this.tableData.length;index++){
-          if(this.tableData[index].grade1 !== this.tableData[index].grade2){
-            this.isequal = false;
-          }
-          if(this.tableData[index].grade1 > 100 || this.tableData[index].grade1 < 0 ||this.tableData[index].grade2 > 100 || this.tableData[index].grade2 < 0 || this.tableData[index].grade1 === undefined || this.tableData[index].grade2 === undefined){
-            this.isvalid = false;
-          }
-      }
-        if(this.isvalid === true && this.isequal === true){
-          for(index=0;index < this.tableData.length;index++){
-            request.get("/grade/usualGrade", {
-              params: {
-                term:this.term,
-                courseId:this.courseId,
-                teacherId:this.teacherId,
-                time:this.time,
-                studentId:this.tableData[index].id,
-                grade:this.tableData[index].grade1
+      this.badGrade = false;
+      this.disagreeGrade = false;
+      request.get("/grade/usualGradeCheck", {
+        params: {
+          term: this.term,
+          courseId: this.courseId,
+          teacherId: this.teacherId,
+          time: this.time
+        }
+      }).then(res => {
+        // console.log(res);
+        if (res.code === '0') {
+          let index = 0;
+          let isvalid = true;
+          let isequal = true;
+          for (index = 0; index < this.tableData.length; index++) {
+            if (this.tableData[index].checked === false || this.tableData[index].checked === undefined) {
+              if (this.tableData[index].grade1 !== this.tableData[index].grade2) {
+                isequal = false;
               }
-            }).then(res => {
-            })
+              if (!(this.tableData[index].grade1 <= 100 && this.tableData[index].grade1 >= 0 && this.tableData[index].grade2 <= 100 && this.tableData[index].grade2 >= 0) || this.tableData[index].grade1 === undefined || this.tableData[index].grade2 === undefined) {
+                isvalid = false;
+              }
+            } else {
+              this.tableData[index].grade1 = '不计'
+              this.tableData[index].grade2 = '不计'
+            }
           }
-          this.badGrade = false;
-          this.disagreeGrade = false;
+          if (isvalid === true && isequal === true) {
+              for (index = 0; index < this.tableData.length; index++) {
+                if(this.tableData[index].grade1 === '不计') {
+                  request.get("/grade/usualGrade", {
+                    params: {
+                      term: this.term,
+                      courseId: this.courseId,
+                      teacherId: this.teacherId,
+                      time: this.time,
+                      studentId: this.tableData[index].id,
+                      grade: -1
+                    }
+                  }).then(res => {
+                  })
+                }
+                else{
+                  request.get("/grade/usualGrade", {
+                    params: {
+                      term: this.term,
+                      courseId: this.courseId,
+                      teacherId: this.teacherId,
+                      time: this.time,
+                      studentId: this.tableData[index].id,
+                      grade: this.tableData[index].grade1
+                    }
+                  }).then(res => {
+                  })
+                }
+              }
             this.$message({
               type: 'success',
               message: '平时成绩提交成功'
             })
+          } else if (isvalid === false) {
+            this.badGrade = true;
+          } else if (isequal === false) {
+            this.disagreeGrade = true;
+          }
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.msg
+          })
         }
-        else if(this.isvalid === false){
-          this.badGrade = true;
-        }
-        else if(this.isequal === false){
-          this.disagreeGrade = true;
-        }
+      })
     },
 
     back() {
-        this.$router.push('/teacherGrade');
+      this.$router.push('/teacherGrade');
     }
   }
 }

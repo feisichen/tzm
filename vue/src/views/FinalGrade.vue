@@ -77,12 +77,11 @@ export default {
       limitNum: sessionStorage.getItem("currentLimitNum"),
       currentNum: sessionStorage.getItem("currentCurrentNum"),
 
+      checked: false,
       tableData: [],
       grade1: null,
       grade2: null,
       row: {},
-      isequal: true,
-      isvalid: true,
       badGrade: false,
       disagreeGrade: false
     }
@@ -106,45 +105,62 @@ export default {
       })
     },
     save() {
-      let index=0;
-      this.isvalid = true;
-      this.isequal = true;
-      for(index=0;index < this.tableData.length;index++){
-        if(this.tableData[index].grade1 !== this.tableData[index].grade2){
-          this.isequal = false;
+      this.badGrade = false;
+      this.disagreeGrade = false;
+      request.get("/grade/finalGradeCheck", {
+        params: {
+          term:this.term,
+          courseId:this.courseId,
+          teacherId:this.teacherId,
+          time:this.time
         }
-        if(this.tableData[index].grade1 > 100 || this.tableData[index].grade1 < 0 ||this.tableData[index].grade2 > 100 || this.tableData[index].grade2 < 0 || this.tableData[index].grade1 === undefined || this.tableData[index].grade2 === undefined){
-          this.isvalid = false;
-        }
-      }
-      if(this.isvalid === true && this.isequal === true){
-        for(index=0;index < this.tableData.length;index++){
-          request.get("/grade/finalGrade", {
-            params: {
-              term:this.term,
-              courseId:this.courseId,
-              teacherId:this.teacherId,
-              time:this.time,
-              weight:this.weight,
-              studentId:this.tableData[index].id,
-              grade:this.tableData[index].grade1
+      }).then(res => {
+        console.log(res);
+        if (res.code === '0') {
+          let index=0;
+          let isvalid = true;
+          let isequal = true;
+          for(index=0;index < this.tableData.length;index++){
+            if(this.tableData[index].grade1 !== this.tableData[index].grade2){
+              isequal = false;
             }
-          }).then(res => {
+            if(!(this.tableData[index].grade1 <= 100 && this.tableData[index].grade1 >= 0 && this.tableData[index].grade2 <= 100 && this.tableData[index].grade2 >= 0) || this.tableData[index].grade1 === undefined || this.tableData[index].grade2 === undefined){
+              isvalid = false;
+            }
+          }
+          if(isvalid === true && isequal === true){
+            for(index=0;index < this.tableData.length;index++){
+              request.get("/grade/finalGrade", {
+                params: {
+                  term:this.term,
+                  courseId:this.courseId,
+                  teacherId:this.teacherId,
+                  time:this.time,
+                  weight:this.weight,
+                  studentId:this.tableData[index].id,
+                  grade:this.tableData[index].grade1
+                }
+              }).then(res => {
+              })
+            }
+            this.$message({
+              type: 'success',
+              message: '考试成绩提交成功'
+            })
+          }
+          else if(isvalid === false){
+            this.badGrade = true;
+          }
+          else if(isequal === false){
+            this.disagreeGrade = true;
+          }
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.msg
           })
         }
-        this.badGrade = false;
-        this.disagreeGrade = false;
-        this.$message({
-          type: 'success',
-          message: '考试成绩提交成功'
-        })
-      }
-      else if(this.isvalid === false){
-        this.badGrade = true;
-      }
-      else if(this.isequal === false){
-        this.disagreeGrade = true;
-      }
+      })
     },
 
     back() {

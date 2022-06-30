@@ -18,7 +18,12 @@
       <el-table-column prop="credit" label="学分"/>
       <el-table-column prop="teacherId" label="教师号"/>
       <el-table-column prop="teacherName" label="教师名"/>
-      <el-table-column prop="usualGrade" label="平时成绩" sortable/>
+      <el-table-column prop="usualGrade" label="平时成绩">
+        <template #default="scope">
+          <span v-if="scope.row.usualGrade === -1">不计</span>
+          <span v-else>{{scope.row.usualGrade}}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="finalGrade" label="考试成绩" sortable/>
       <el-table-column prop="totalGrade" label="综合成绩" sortable/>
     </el-table>

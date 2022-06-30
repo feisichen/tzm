@@ -66,6 +66,14 @@ public interface GradeMapper extends BaseMapper<Grade> {
             "where term = #{term} and student_id = #{studentId} " +
             "and teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
     Integer updateUsual(String term, String courseId, String teacherId, String time, String studentId, Integer grade);
+    @Select("select usual_grade from grade " +
+            "where term = #{term} and student_id = #{studentId} " +
+            "and teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
+    Integer getUsual(String term, String courseId, String teacherId, String time, Double weight, String studentId);
+    @Update("update grade set final_grade = #{grade}, total_grade =  #{grade} " +
+            "where term = #{term} and student_id = #{studentId} " +
+            "and teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
+    Integer updateNoUsualFinal(String term, String courseId, String teacherId, String time, String studentId, Integer grade);
 
     @Update("update grade set final_grade = #{grade}, total_grade = usual_grade * (1-#{weight}) + final_grade * #{weight} " +
             "where term = #{term} and student_id = #{studentId} " +

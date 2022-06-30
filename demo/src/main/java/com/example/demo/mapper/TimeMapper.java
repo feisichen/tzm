@@ -23,5 +23,12 @@ public interface TimeMapper extends BaseMapper<TimeLimit> {
             "and finalgradebegin <= (SELECT CURRENT_TIMESTAMP FROM DUAL) " +
             "and finalgradeend >= (SELECT CURRENT_TIMESTAMP FROM DUAL);")
     Integer isFTimeAllow(String term);
-
+    @Select("select count(*) from grade where usual_grade <> 0 " +
+            "and term = #{term} and course_id = #{courseId} "+
+            "and teacher_id = #{teacherId} and time = #{time}")
+    Integer isURepeated(String term, String courseId, String teacherId, String time);
+    @Select("select count(*) from grade where final_grade <> 0 " +
+            "and term = #{term} and course_id = #{courseId} "+
+            "and teacher_id = #{teacherId} and time = #{time}")
+    Integer isFRepeated(String term, String courseId, String teacherId, String time);
 }

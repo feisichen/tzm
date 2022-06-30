@@ -170,26 +170,45 @@ public class GradeController {
                                        @RequestParam(defaultValue = "") Double weight,
                                       @RequestParam(defaultValue = "") String studentId,
                                       @RequestParam(defaultValue = "") Integer grade) {
-        int res = gradeMapper.updateFinal(term,courseId,teacherId,time,weight,studentId,grade);
+        int usualGrade = gradeMapper.getUsual(term,courseId,teacherId,time,weight,studentId);
+        int res  = 0;
+        if(usualGrade == -1){
+            res = gradeMapper.updateNoUsualFinal(term,courseId,teacherId,time,studentId,grade);
+        } else if (usualGrade >=0 && usualGrade <= 100) {
+            res = gradeMapper.updateFinal(term,courseId,teacherId,time,weight,studentId,grade);
+        }
         return Result.success(res);
     }
 
-    @GetMapping("/usualGradeTime")
-    public Result<?> isusualGradeTime(@RequestParam(defaultValue = "") String term) {
+    @GetMapping("/usualGradeCheck")
+    public Result<?> usualGradeCheck(@RequestParam(defaultValue = "") String term,
+                                      @RequestParam(defaultValue = "") String courseId,
+                                      @RequestParam(defaultValue = "") String teacherId,
+                                      @RequestParam(defaultValue = "") String time) {
 
         Integer res = timeMapper.isUTimeAllow(term);
         if(res.intValue() == 0){
             return Result.error("-1", "登记失败！未到平时成绩登记时间");
         }
-
+        res = timeMapper.isURepeated(term, courseId, teacherId, time);
+        if(res.intValue() != 0){
+            return Result.error("-1", "登记失败！已提交平时成绩");
+        }
         return Result.success(res);
     }
 
-    @GetMapping("/finalGradeTime")
-    public Result<?> isfinalGradeTime(@RequestParam(defaultValue = "") String term){
+    @GetMapping("/finalGradeCheck")
+    public Result<?> finalGradeCheck(@RequestParam(defaultValue = "") String term,
+                                     @RequestParam(defaultValue = "") String courseId,
+                                     @RequestParam(defaultValue = "") String teacherId,
+                                     @RequestParam(defaultValue = "") String time){
         Integer res = timeMapper.isFTimeAllow(term);
         if(res.intValue() == 0){
             return Result.error("-1", "登记失败！未到考试成绩登记时间");
+        }
+        res = timeMapper.isFRepeated(term, courseId, teacherId, time);
+        if(res.intValue() != 0){
+            return Result.error("-1", "登记失败！已提交考试成绩");
         }
         return Result.success(res);
     }

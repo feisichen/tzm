@@ -27,7 +27,12 @@
       <el-table :data="tableData" border stripe style="width: 100%;">
         <el-table-column prop="id" label="学生学号" sortable/>
         <el-table-column prop="name" label="学生姓名"/>
-        <el-table-column prop="usualGrade" label="平时成绩" sortable/>
+        <el-table-column prop="usualGrade" label="平时成绩">
+          <template #default="scope">
+            <span v-if="scope.row.usualGrade === -1">不计</span>
+            <span v-else>{{scope.row.usualGrade}}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="finalGrade" label="考试成绩" sortable/>
         <el-table-column prop="totalGrade" label="综合成绩" sortable/>
 
@@ -168,9 +173,12 @@ export default {
     usualGrade() {
       // 跳转路由
       // console.log(this.totalAverage);
-      request.get("/grade/usualGradeTime", {
+      request.get("/grade/usualGradeCheck", {
         params: {
           term:this.term,
+          courseId:this.courseId,
+          teacherId:this.teacherId,
+          time:this.time
         }
       }).then(res => {
         // console.log(res);
@@ -188,9 +196,12 @@ export default {
     finalGrade() {
       // 跳转路由
       // this.$router.push("/finalgrade");
-      request.get("/grade/finalGradeTime", {
+      request.get("/grade/finalGradeCheck", {
         params: {
           term:this.term,
+          courseId:this.courseId,
+          teacherId:this.teacherId,
+          time:this.time
         }
       }).then(res => {
         console.log(res);
@@ -304,7 +315,8 @@ export default {
         {value: 0, name: '80分-89分'},
         {value: 0, name: '70分-79分'},
         {value: 0, name: '60-69分'},
-        {value: 0, name: '60分以下'}
+        {value: 0, name: '60分以下'},
+        {value: 0, name: '平时成绩不计'}
       ];
       let finalDistributionData = JSON.parse(JSON.stringify(usualDistributionData));
       let totalDistributionData = JSON.parse(JSON.stringify(usualDistributionData));
@@ -372,7 +384,9 @@ export default {
         // 算平均分
         let usualSum = 0, finalSum = 0, totalSum = 0;
         for (let i = 0; i < this.tableData.length; i++) {
-          usualSum += this.tableData[i].usualGrade;
+          if(this.tableData[i].usualGrade !== -1){
+            usualSum += this.tableData[i].usualGrade;
+          }
           finalSum += this.tableData[i].finalGrade;
           totalSum += this.tableData[i].totalGrade;
         }
@@ -402,8 +416,10 @@ export default {
           distributionData[2]["value"]++;
         } else if (t >= 60 && t <= 69) {
           distributionData[3]["value"]++;
-        } else {
+        } else if (t >= 0 && t <= 59){
           distributionData[4]["value"]++;
+        } else{
+          distributionData[5]["value"]++;
         }
       }
     }
