@@ -91,10 +91,14 @@ public class GradeController {
         return Result.success(res);
     }
 
-    @DeleteMapping("/{id}")
-    public Result<?> delete(@PathVariable Long id) {
-        gradeMapper.deleteById(id);
-        return Result.success();
+    @DeleteMapping("/delete")
+    public Result<?> delete(@RequestParam(defaultValue = "") String term,
+                            @RequestParam(defaultValue = "") String courseId,
+                            @RequestParam(defaultValue = "") String teacherId,
+                            @RequestParam(defaultValue = "") String studentId,
+                            @RequestParam(defaultValue = "") String time) {
+        Integer res = classesMapper.delete(term, courseId, teacherId, time, studentId);
+        return Result.success(res);
     }
 
     @GetMapping("/forGrade")

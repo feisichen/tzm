@@ -1,40 +1,24 @@
--- create database course_choose;
-use  course_choose;
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : localhost_3306
+ Source Server Type    : MySQL
+ Source Server Version : 50726
+ Source Host           : localhost:3306
+ Source Schema         : course_choose
+
+ Target Server Type    : MySQL
+ Target Server Version : 50726
+ File Encoding         : 65001
+
+ Date: 29/06/2022 21:42:03
+*/
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
--- ----------------------------
--- 时间表time_limit
--- ----------------------------
-DROP TABLE IF EXISTS `time_limit`;
-CREATE TABLE `time_limit`  (
-                               `term` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '学期',
-                               `selectbegin` datetime COMMENT '选课开始时间',
-                               `selectend` datetime COMMENT '选课结束时间',
-                               `usualgradebegin` datetime COMMENT '平时成绩登记开始时间',
-                               `usualgradeend` datetime COMMENT '平时成绩登记结束时间',
-                               `finalgradebegin` datetime COMMENT '考试成绩登记开始时间',
-                               `finalgradeend` datetime COMMENT '考试成绩登记结束时间',
-                               PRIMARY KEY (`term`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
-INSERT INTO `time_limit` VALUES ('19年春','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('19年夏','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('19年秋','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('19年冬','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('20年春','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('20年夏','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('20年秋','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('20年冬','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('21年春','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('21年夏','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('21年秋','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('21年冬','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('22年春','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('22年夏','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('22年秋','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
-INSERT INTO `time_limit` VALUES ('22年冬','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00','2022-06-27 12:00:00');
 -- ----------------------------
--- 班级表classes
+-- Table structure for classes
 -- ----------------------------
 DROP TABLE IF EXISTS `classes`;
 CREATE TABLE `classes`  (
@@ -45,8 +29,8 @@ CREATE TABLE `classes`  (
                             `teacher_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                             `teacher_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                             `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                            `limit_num` int NULL DEFAULT NULL,
-                            `current_num` int NULL DEFAULT NULL,
+                            `limit_num` int(11) NULL DEFAULT NULL,
+                            `current_num` int(11) NULL DEFAULT NULL,
                             PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -76,99 +60,99 @@ INSERT INTO `classes` VALUES ('2020', '19年秋', '02075052', '文学概论', '1
 INSERT INTO `classes` VALUES ('2022', '19年春', '08305075', '计算机组成原理实验', '106', '宋浩', '一3-4', 50, 1);
 
 -- ----------------------------
--- 课程表course
+-- Table structure for course
 -- ----------------------------
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course`  (
                            `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '课号',
                            `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '课名',
-                           `credit` int NULL DEFAULT NULL COMMENT '学分',
-                           `department` int NULL DEFAULT NULL COMMENT '院系号',
-                           `weight` double NULL DEFAULT 0.6 COMMENT '平时成绩占比',
+                           `credit` int(11) NULL DEFAULT NULL COMMENT '学分',
+                           `department` int(11) NULL DEFAULT NULL COMMENT '院系号',
+                           `Weight` double NULL DEFAULT 0.6,
                            PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of course
 -- ----------------------------
-INSERT INTO `course` VALUES ('01013010', '线性代数', 3, 3,0.5);
-INSERT INTO `course` VALUES ('01014017', '概率论与数理统计', 3, 3,0.5);
-INSERT INTO `course` VALUES ('02075003', '现代汉语', 6, 2,0.5);
-INSERT INTO `course` VALUES ('02075032', '中国文学批评史', 6, 2,0.5);
-INSERT INTO `course` VALUES ('02075052', '文学概论', 3, 2,0.5);
-INSERT INTO `course` VALUES ('02075053', '语言学概论', 3, 2,0.5);
-INSERT INTO `course` VALUES ('02075133', '中国古典文献学', 3, 2,0.5);
-INSERT INTO `course` VALUES ('02075271', '中国当代文学', 6, 2,0.5);
-INSERT INTO `course` VALUES ('02075363', '比较文学', 3, 2,0.5);
-INSERT INTO `course` VALUES ('02075432', '中国古代文学A', 9, 2,0.5);
-INSERT INTO `course` VALUES ('02075435', '中国古代文学B', 6, 2,0.5);
-INSERT INTO `course` VALUES ('02075437', '中国现代文学', 6, 2,0.5);
-INSERT INTO `course` VALUES ('02075439', '外国文学', 9, 2,0.5);
-INSERT INTO `course` VALUES ('02075442', '古代汉语', 9, 2,0.5);
-INSERT INTO `course` VALUES ('02076273', '西方文论', 6, 2,0.5);
-INSERT INTO `course` VALUES ('02076331', '创意写作', 3, 2,0.5);
-INSERT INTO `course` VALUES ('04105083', '经管文献检索', 3, 3,0.5);
-INSERT INTO `course` VALUES ('04135004', '经济法', 4, 3,0.5);
-INSERT INTO `course` VALUES ('04135025', '世界经济', 3, 3,0.5);
-INSERT INTO `course` VALUES ('04135061', '公共经济学', 3, 3,0.5);
-INSERT INTO `course` VALUES ('04136012', '产业经济学', 3, 3,0.5);
-INSERT INTO `course` VALUES ('04145001', '货币银行学', 4, 3,0.5);
-INSERT INTO `course` VALUES ('04145002', '国际金融', 4, 3,0.5);
-INSERT INTO `course` VALUES ('04145003', '统计学', 5, 3,0.5);
-INSERT INTO `course` VALUES ('04145011', '计量经济学', 3, 3,0.5);
-INSERT INTO `course` VALUES ('04155001', '国际贸易原理', 4, 3,0.5);
-INSERT INTO `course` VALUES ('04156003', '国际贸易实务', 4, 3,0.5);
-INSERT INTO `course` VALUES ('04165002', '税收学', 4, 3,0.5);
-INSERT INTO `course` VALUES ('04205018', '基础会计', 4, 3,0.5);
-INSERT INTO `course` VALUES ('06265051', '民事诉讼法', 6, 5,0.5);
-INSERT INTO `course` VALUES ('06265072', '行政法与行政诉讼法', 6, 5,0.5);
-INSERT INTO `course` VALUES ('06265136', '法理学', 8, 5,0.5);
-INSERT INTO `course` VALUES ('06265171', '中国法律史', 5, 5,0.5);
-INSERT INTO `course` VALUES ('06265172', '宪法学', 5, 5,0.5);
-INSERT INTO `course` VALUES ('06265173', '民法', 13, 5,0.5);
-INSERT INTO `course` VALUES ('06265176', '刑法', 13, 5,0.5);
-INSERT INTO `course` VALUES ('06265178', '刑事诉讼法', 6, 5,0.5);
-INSERT INTO `course` VALUES ('06265179', '国际法', 5, 5,0.5);
-INSERT INTO `course` VALUES ('06265194', '习近平法治思想概论', 2, 5,0.5);
-INSERT INTO `course` VALUES ('06266170', '法律职业伦理', 2, 5,0.5);
-INSERT INTO `course` VALUES ('08305009', '数据结构', 8, 1,0.5);
-INSERT INTO `course` VALUES ('08305011', '操作系统', 8, 1,0.5);
-INSERT INTO `course` VALUES ('08305014', '数据库原理', 7, 1,0.5);
-INSERT INTO `course` VALUES ('08305016', '软件工程', 4, 1,0.5);
-INSERT INTO `course` VALUES ('08305072', '数字逻辑实验', 1, 1,0.5);
-INSERT INTO `course` VALUES ('08305073', '计算机组成原理', 6, 1,0.5);
-INSERT INTO `course` VALUES ('08305075', '计算机组成原理实验', 2, 1,0.5);
-INSERT INTO `course` VALUES ('08305138', '面向对象程序设计', 4, 1,0.5);
-INSERT INTO `course` VALUES ('08305139', '数字逻辑', 4, 1,0.5);
-INSERT INTO `course` VALUES ('08305140', '离散数学', 6, 1,0.5);
-INSERT INTO `course` VALUES ('08305142', '计算机网络', 5, 1,0.5);
-INSERT INTO `course` VALUES ('08305144', '编译原理', 4, 1,0.5);
-INSERT INTO `course` VALUES ('14765010', '原动画设计', 8, 4,0.5);
-INSERT INTO `course` VALUES ('14765015', '剪辑艺术与实践', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765017', '定格动画基础', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765018', '数字合成技术基础', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765024', '动画表演', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765038', '艺术概论', 2, 4,0.5);
-INSERT INTO `course` VALUES ('14765039', '动画概论', 3, 4,0.5);
-INSERT INTO `course` VALUES ('14765041', '动画导演', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765042', '分镜头脚本设计', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765043', '动画角色设计', 6, 4,0.5);
-INSERT INTO `course` VALUES ('14765045', '动画场景设计', 6, 4,0.5);
-INSERT INTO `course` VALUES ('14765064', '视听语言基础', 2, 4,0.5);
-INSERT INTO `course` VALUES ('14765065', '设计构成基础', 2, 4,0.5);
-INSERT INTO `course` VALUES ('14765066', '动画数字技术基础', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765068', '动画原理与规律', 2, 4,0.5);
-INSERT INTO `course` VALUES ('14765069', '数字三维动画基础', 8, 4,0.5);
-INSERT INTO `course` VALUES ('14765071', '电影声音设计与制作', 4, 4,0.5);
-INSERT INTO `course` VALUES ('14765072', '游戏设计基础', 2, 4,0.5);
-INSERT INTO `course` VALUES ('14765073', '动画故事写作基础', 2, 4,0.5);
+INSERT INTO `course` VALUES ('01013010', '线性代数', 3, 3, 0.6);
+INSERT INTO `course` VALUES ('01014017', '概率论与数理统计', 3, 3, 0.6);
+INSERT INTO `course` VALUES ('02075003', '现代汉语', 6, 2, 0.6);
+INSERT INTO `course` VALUES ('02075032', '中国文学批评史', 6, 2, 0.6);
+INSERT INTO `course` VALUES ('02075052', '文学概论', 3, 2, 0.6);
+INSERT INTO `course` VALUES ('02075053', '语言学概论', 3, 2, 0.6);
+INSERT INTO `course` VALUES ('02075133', '中国古典文献学', 3, 2, 0.6);
+INSERT INTO `course` VALUES ('02075271', '中国当代文学', 6, 2, 0.6);
+INSERT INTO `course` VALUES ('02075363', '比较文学', 3, 2, 0.6);
+INSERT INTO `course` VALUES ('02075432', '中国古代文学A', 9, 2, 0.6);
+INSERT INTO `course` VALUES ('02075435', '中国古代文学B', 6, 2, 0.6);
+INSERT INTO `course` VALUES ('02075437', '中国现代文学', 6, 2, 0.6);
+INSERT INTO `course` VALUES ('02075439', '外国文学', 9, 2, 0.6);
+INSERT INTO `course` VALUES ('02075442', '古代汉语', 9, 2, 0.6);
+INSERT INTO `course` VALUES ('02076273', '西方文论', 6, 2, 0.6);
+INSERT INTO `course` VALUES ('02076331', '创意写作', 3, 2, 0.6);
+INSERT INTO `course` VALUES ('04105083', '经管文献检索', 3, 3, 0.6);
+INSERT INTO `course` VALUES ('04135004', '经济法', 4, 3, 0.6);
+INSERT INTO `course` VALUES ('04135025', '世界经济', 3, 3, 0.6);
+INSERT INTO `course` VALUES ('04135061', '公共经济学', 3, 3, 0.6);
+INSERT INTO `course` VALUES ('04136012', '产业经济学', 3, 3, 0.6);
+INSERT INTO `course` VALUES ('04145001', '货币银行学', 4, 3, 0.6);
+INSERT INTO `course` VALUES ('04145002', '国际金融', 4, 3, 0.6);
+INSERT INTO `course` VALUES ('04145003', '统计学', 5, 3, 0.6);
+INSERT INTO `course` VALUES ('04145011', '计量经济学', 3, 3, 0.6);
+INSERT INTO `course` VALUES ('04155001', '国际贸易原理', 4, 3, 0.6);
+INSERT INTO `course` VALUES ('04156003', '国际贸易实务', 4, 3, 0.6);
+INSERT INTO `course` VALUES ('04165002', '税收学', 4, 3, 0.6);
+INSERT INTO `course` VALUES ('04205018', '基础会计', 4, 3, 0.6);
+INSERT INTO `course` VALUES ('06265051', '民事诉讼法', 6, 5, 0.6);
+INSERT INTO `course` VALUES ('06265072', '行政法与行政诉讼法', 6, 5, 0.6);
+INSERT INTO `course` VALUES ('06265136', '法理学', 8, 5, 0.6);
+INSERT INTO `course` VALUES ('06265171', '中国法律史', 5, 5, 0.6);
+INSERT INTO `course` VALUES ('06265172', '宪法学', 5, 5, 0.6);
+INSERT INTO `course` VALUES ('06265173', '民法', 13, 5, 0.6);
+INSERT INTO `course` VALUES ('06265176', '刑法', 13, 5, 0.6);
+INSERT INTO `course` VALUES ('06265178', '刑事诉讼法', 6, 5, 0.6);
+INSERT INTO `course` VALUES ('06265179', '国际法', 5, 5, 0.6);
+INSERT INTO `course` VALUES ('06265194', '习近平法治思想概论', 2, 5, 0.6);
+INSERT INTO `course` VALUES ('06266170', '法律职业伦理', 2, 5, 0.6);
+INSERT INTO `course` VALUES ('08305009', '数据结构', 8, 1, 0.6);
+INSERT INTO `course` VALUES ('08305011', '操作系统', 8, 1, 0.6);
+INSERT INTO `course` VALUES ('08305014', '数据库原理', 7, 1, 0.6);
+INSERT INTO `course` VALUES ('08305016', '软件工程', 4, 1, 0.6);
+INSERT INTO `course` VALUES ('08305072', '数字逻辑实验', 1, 1, 0.6);
+INSERT INTO `course` VALUES ('08305073', '计算机组成原理', 6, 1, 0.6);
+INSERT INTO `course` VALUES ('08305075', '计算机组成原理实验', 2, 1, 0.6);
+INSERT INTO `course` VALUES ('08305138', '面向对象程序设计', 4, 1, 0.6);
+INSERT INTO `course` VALUES ('08305139', '数字逻辑', 4, 1, 0.6);
+INSERT INTO `course` VALUES ('08305140', '离散数学', 6, 1, 0.6);
+INSERT INTO `course` VALUES ('08305142', '计算机网络', 5, 1, 0.6);
+INSERT INTO `course` VALUES ('08305144', '编译原理', 4, 1, 0.6);
+INSERT INTO `course` VALUES ('14765010', '原动画设计', 8, 4, 0.6);
+INSERT INTO `course` VALUES ('14765015', '剪辑艺术与实践', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765017', '定格动画基础', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765018', '数字合成技术基础', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765024', '动画表演', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765038', '艺术概论', 2, 4, 0.6);
+INSERT INTO `course` VALUES ('14765039', '动画概论', 3, 4, 0.6);
+INSERT INTO `course` VALUES ('14765041', '动画导演', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765042', '分镜头脚本设计', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765043', '动画角色设计', 6, 4, 0.6);
+INSERT INTO `course` VALUES ('14765045', '动画场景设计', 6, 4, 0.6);
+INSERT INTO `course` VALUES ('14765064', '视听语言基础', 2, 4, 0.6);
+INSERT INTO `course` VALUES ('14765065', '设计构成基础', 2, 4, 0.6);
+INSERT INTO `course` VALUES ('14765066', '动画数字技术基础', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765068', '动画原理与规律', 2, 4, 0.6);
+INSERT INTO `course` VALUES ('14765069', '数字三维动画基础', 8, 4, 0.6);
+INSERT INTO `course` VALUES ('14765071', '电影声音设计与制作', 4, 4, 0.6);
+INSERT INTO `course` VALUES ('14765072', '游戏设计基础', 2, 4, 0.6);
+INSERT INTO `course` VALUES ('14765073', '动画故事写作基础', 2, 4, 0.6);
 
 -- ----------------------------
--- 院系表department
+-- Table structure for department
 -- ----------------------------
 DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department`  (
-                               `department` int NOT NULL COMMENT '院系号',
+                               `department` int(11) NOT NULL COMMENT '院系号',
                                `department_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '院名',
                                PRIMARY KEY (`department`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
@@ -183,21 +167,21 @@ INSERT INTO `department` VALUES (4, '电影学院');
 INSERT INTO `department` VALUES (5, '法学院');
 
 -- ----------------------------
--- 成绩表grade
+-- Table structure for grade
 -- ----------------------------
 DROP TABLE IF EXISTS `grade`;
 CREATE TABLE `grade`  (
-                          `id` int NOT NULL AUTO_INCREMENT,
+                          `id` int(11) NOT NULL AUTO_INCREMENT,
                           `student_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                           `term` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                           `course_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                           `teacher_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                          `usual_grade` int NULL DEFAULT NULL,
-                          `final_grade` int NULL DEFAULT NULL,
-                          `total_grade` int NULL DEFAULT NULL,
+                          `usual_grade` int(11) NULL DEFAULT NULL,
+                          `final_grade` int(11) NULL DEFAULT NULL,
+                          `total_grade` int(11) NULL DEFAULT NULL,
                           `time` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                           PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 125 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 169 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of grade
@@ -218,9 +202,40 @@ INSERT INTO `grade` VALUES (133, '19122185', '19年秋', '02075052', '102', 97, 
 INSERT INTO `grade` VALUES (135, '19122193', '19年秋', '02075052', '102', 92, 75, 80, '一1-2');
 INSERT INTO `grade` VALUES (136, '19122196', '19年秋', '02075052', '102', 95, 69, 77, '一1-2');
 INSERT INTO `grade` VALUES (137, '19122002', '19年冬', '08305140', '101', 91, 69, 76, '一1-2');
+INSERT INTO `grade` VALUES (138, '19122175', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (139, '19122184', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (140, '19122185', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (141, '19122193', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (142, '19122196', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (143, '1912', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (144, '19122171', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (145, '19122172', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (146, '19122173', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (147, '19122174', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (148, '19122176', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (149, '19122177', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (150, '19122178', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (151, '19122179', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (152, '19122180', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (153, '19122181', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (154, '19122182', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (155, '19122183', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (156, '19122186', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (157, '19122187', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (158, '19122188', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (159, '19122189', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (160, '19122190', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (161, '19122191', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (162, '19122192', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (163, '19122194', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (164, '19122195', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (165, '19122197', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (166, '19122198', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (167, '19122199', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
+INSERT INTO `grade` VALUES (168, '19122200', '19年秋', '08305138', '101', NULL, NULL, NULL, '一1-2');
 
 -- ----------------------------
--- 学生表student
+-- Table structure for student
 -- ----------------------------
 DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student`  (
@@ -228,7 +243,7 @@ CREATE TABLE `student`  (
                             `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '密码',
                             `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '姓名',
                             `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '性别',
-                            `department` int NULL DEFAULT NULL COMMENT '院系号',
+                            `department` int(11) NULL DEFAULT NULL COMMENT '院系号',
                             `gpa` double NULL DEFAULT NULL COMMENT '绩点',
                             PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
@@ -270,7 +285,7 @@ INSERT INTO `student` VALUES ('19122199', '19122199', '动力节点', '男', 1, 
 INSERT INTO `student` VALUES ('19122200', '19122200', '哔哩哔哩番剧', '女', 2, 0);
 
 -- ----------------------------
--- 教师表teacher
+-- Table structure for teacher
 -- ----------------------------
 DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher`  (
@@ -278,14 +293,13 @@ CREATE TABLE `teacher`  (
                             `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                             `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
                             `sex` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-                            `department` int NULL DEFAULT NULL,
+                            `department` int(11) NULL DEFAULT NULL,
                             PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('sys', 'sys', 'SystemAdministrator', NULL, NULL);
 INSERT INTO `teacher` VALUES ('101', '101', '大司马', '女', 1);
 INSERT INTO `teacher` VALUES ('102', '102', '毕导SHU', '女', 2);
 INSERT INTO `teacher` VALUES ('103', '103', 'LCF', '男', 3);
@@ -346,14 +360,32 @@ INSERT INTO `teacher` VALUES ('157', '157', '地平线', '男', 4);
 INSERT INTO `teacher` VALUES ('158', '158', '暴雷', '男', 5);
 INSERT INTO `teacher` VALUES ('159', '159', '幻象', '男', 2);
 INSERT INTO `teacher` VALUES ('160', '160', '华森', '女', 5);
+INSERT INTO `teacher` VALUES ('sys', 'sys', 'SystemAdministrator', NULL, NULL);
 
+-- ----------------------------
+-- Table structure for time
+-- ----------------------------
+DROP TABLE IF EXISTS `time`;
+CREATE TABLE `time`  (
+                         `Term` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+                         `Select_begin` date NULL DEFAULT NULL,
+                         `Select_end` date NULL DEFAULT NULL,
+                         `Usual_grade_begin` date NULL DEFAULT NULL,
+                         `Usual_grade_end` date NULL DEFAULT NULL,
+                         `Final_grade_begin` date NULL DEFAULT NULL,
+                         `Final_grade_end` date NULL DEFAULT NULL,
+                         PRIMARY KEY (`Term`) USING BTREE
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
-
--- 触发器
+-- ----------------------------
+-- Records of time
+-- ----------------------------
+INSERT INTO `time` VALUES ('19年秋', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `time` VALUES ('19年冬', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `time` VALUES ('19年春', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Procedure structure for getDepInfo
--- 不要删，解决编辑之后出现编号不出现院系的原因，这是有用的
 -- ----------------------------
 DROP PROCEDURE IF EXISTS `getDepInfo`;
 delimiter ;;
@@ -371,8 +403,7 @@ delimiter ;
 -- ----------------------------
 DROP TRIGGER IF EXISTS `after_delete_classes`;
 delimiter ;;
-CREATE TRIGGER `after_delete_classes` AFTER DELETE ON `classes` FOR EACH ROW
-begin
+CREATE TRIGGER `after_delete_classes` AFTER DELETE ON `classes` FOR EACH ROW begin
     delete from grade where term = old.term
                         and time = old.time
                         and course_id = old.course_id
@@ -395,12 +426,10 @@ delimiter ;
 
 -- ----------------------------
 -- Triggers structure for table department
--- 管理员
 -- ----------------------------
 DROP TRIGGER IF EXISTS `after_delete_department`;
 delimiter ;;
-CREATE TRIGGER `after_delete_department` AFTER DELETE ON `department` FOR EACH ROW
-begin
+CREATE TRIGGER `after_delete_department` AFTER DELETE ON `department` FOR EACH ROW begin
     delete from grade where student_id in (select id from student where department = old.department)
                          or teacher_id in (select id from teacher where department = old.department)
                          or course_id in (select id from course where department = old.department);
@@ -416,14 +445,10 @@ delimiter ;
 -- ----------------------------
 DROP TRIGGER IF EXISTS `after_delete_student`;
 delimiter ;;
-CREATE TRIGGER `after_delete_student` AFTER DELETE ON `student` FOR EACH ROW
-begin
+CREATE TRIGGER `after_delete_student` AFTER DELETE ON `student` FOR EACH ROW begin
     delete from grade where student_id = old.id;
 end
 ;;
 delimiter ;
 
-
 SET FOREIGN_KEY_CHECKS = 1;
-
-

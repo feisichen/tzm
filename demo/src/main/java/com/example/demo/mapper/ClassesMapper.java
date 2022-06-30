@@ -3,6 +3,7 @@ package com.example.demo.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.demo.entity.Classes;
 import com.example.demo.entity.ClassesVO;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -101,4 +102,7 @@ public interface ClassesMapper extends BaseMapper<Classes> {
     @Update("update classes set current_num = current_num - 1 where term = #{term} and " +
             "teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time}")
     void deleteOneStudent(String term, String courseId, String teacherId, String time);
+    @Delete("delete from grade where term = #{term} and " +
+            "teacher_id = #{teacherId} and course_id = #{courseId} and time = #{time} and student_id = #{studentId}")
+    Integer delete(String term, String courseId, String teacherId, String time, String studentId);
 }

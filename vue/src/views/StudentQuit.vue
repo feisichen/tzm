@@ -105,7 +105,15 @@ export default {
           return;
         } else {
           // 删除grade表中对应元素
-          request.delete("/grade/" + res.data).then(res2 => {
+          request.delete("/grade/delete",{
+            params: {
+              term: row.term,
+                  courseId: row.courseId,
+                  teacherId: row.teacherId,
+                  time: row.time,
+                  studentId: sessionStorage.getItem("currentId")
+            }
+          }).then(res2 => {
             console.log(res2)
             if (res2.code === '0') {
               this.$message({
